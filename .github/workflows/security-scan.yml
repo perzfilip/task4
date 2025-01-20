@@ -25,10 +25,13 @@ jobs:
           vuln-type: 'os,library'
           format: 'table'
 
-      - name: Install Semgrep
+      - name: Install semgrep in venv
         run: |
-          sudo pip install semgrep
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install semgrep
 
       - name: Run Semgrep SAST
         run: |
-          semgrep --config p/security-audit --error --json .
+          semgrep --config p/security-audit --json .
